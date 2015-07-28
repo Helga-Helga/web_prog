@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>lab 2</title>
+    <script language="JavaScript">
+        function checking(){
+            //Read the value of email field in the x
+            var y=document.forms["form"]["email"].value;
+            //If the email field is empty - show a message and prevent sending form
+            if (y.length==0){
+                document.getElementById("emailf").innerHTML='*the field is empty';
+                return false;
+            }
+            //Check if the value of email field contains the symbol "@"
+            at= y.indexOf("@");
+            //If the field doesn't contain this symbol, then the email value was entered incorrectly
+            if (at<0){
+                document.getElementById("emailf").innerHTML='*email was entered incorrectly';
+                return false;
+            }
+        }
+    </script>
+</head>
+<body>
+<form name="form" onsubmit="return checking()">
+    Name: <input type="text" name="firstname"><br>
+    Surname: <input type="text" name="secondname"><br>
+    Town: <input type="text" name="town"><br>
+    Country: <input type="text" name="country"><br>
+    Postcode: <input type="text" name="postcode"><br>
+    E-mail: <input type="text" name="email">
+        <span style="color:red" id="emailf"></span> <br>
+    <input type="submit" name="Send">
+</form>
+</body>
+</html>
