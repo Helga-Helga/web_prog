@@ -5,18 +5,36 @@
     <title>lab 2</title>
     <script language="JavaScript">
         function checking(){
-            //Read the value of email field in the x
-            var y=document.forms["form"]["email"].value;
-            //If the email field is empty - show a message and prevent sending form
-            if (y.length==0){
-                document.getElementById("emailf").innerHTML='*the field is empty';
+            //Read the values of email, name, surname and postcode fields in the email, name, surname and postcode
+            var email=document.forms["form"]["email"].value;
+            var name=document.forms["form"]["name"].value;
+            var surname=document.forms["form"]["surname"].value;
+            var postcode=document.forms["form"]["postcode"].value;
+            //If the email field is empty, show a message and prevent sending form
+            if (email.length==0){
+                document.getElementById("emailid").innerHTML='*the field is required';
+                return false;
+            }
+            //If the name field is empty, show a message and prevent sending form
+            if (name.length==0){
+                document.getElementById("nameid").innerHTML='*the field is required';
+                return false;
+            }
+            //If the surname field is empty, show a message and prevent sending form
+            if (surname.length==0){
+                document.getElementById("surnameid").innerHTML='*the field is required';
+                return false;
+            }
+            //If the postcode field doesn't contain only 5 numbers, show a message and prevent sending form
+            if (postcode.length!=5){
+                document.getElementById("postcodeid").innerHTML='*please, enter postcode';
                 return false;
             }
             //Check if the value of email field contains the symbol "@"
-            at= y.indexOf("@");
+            at= email.indexOf("@");
             //If the field doesn't contain this symbol, then the email value was entered incorrectly
             if (at<0){
-                document.getElementById("emailf").innerHTML='*email was entered incorrectly';
+                document.getElementById("emailid").innerHTML='*please, enter correct email';
                 return false;
             }
         }
@@ -24,13 +42,16 @@
 </head>
 <body>
 <form name="form" onsubmit="return checking()">
-    Name: <input type="text" name="firstname"><br>
-    Surname: <input type="text" name="secondname"><br>
+    Name: <input type="text" name="name">
+        <span style="color: red" id="nameid"></span> <br>
+    Surname: <input type="text" name="surname">
+        <span style="color: red" id="surnameid"></span> <br>
     Town: <input type="text" name="town"><br>
     Country: <input type="text" name="country"><br>
-    Postcode: <input type="text" name="postcode"><br>
+    Postcode: <input type="text" name="postcode" size="5" onkeypress="return event.charCode>=48 && event.charCode<=57">
+        <span style="color:red" id="postcodeid"></span> <br>
     E-mail: <input type="text" name="email">
-        <span style="color:red" id="emailf"></span> <br>
+        <span style="color:red" id="emailid"></span> <br>
     <input type="submit" name="Send">
 </form>
 </body>
