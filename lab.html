@@ -3,64 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <title>lab 2</title>
-    <script language="JavaScript">
+    <script type="text/javascript">
         function checking(){
             //Read the values of email, name, surname and postcode fields in the email, name, surname and postcode
             var email=document.forms["form"]["email"].value;
             var name=document.forms["form"]["name"].value;
             var surname=document.forms["form"]["surname"].value;
             var postcode=document.forms["form"]["postcode"].value;
-            //If the name field is empty, show a message and prevent sending form
-            if (name.length==0){
-                document.getElementById("nameid").innerHTML='*the field is required';
-                return false;
+            //If the name field is empty or consist not only letters, show a message and prevent sending form
+            if (!name.value.match(/^[a-zA-z]+$/)){
+                document.getElementById("name-error").innerHTML='*please, enter the correct name';
             }
-            //If the surname field is empty, show a message and prevent sending form
-            if (surname.length==0){
-                document.getElementById("surnameid").innerHTML='*the field is required';
-                return false;
+            //If the surname field is empty or consist not only letters, show a message and prevent sending form
+            if (!surname.value.match(/^[a-zA-Z]+$/)){
+                document.getElementById("surname-error").innerHTML='*please, enter the correct surname';
             }
             //If the postcode field doesn't contain only 5 numbers, show a message and prevent sending form
-            if (postcode.length!=5){
-                document.getElementById("postcodeid").innerHTML='*the postcode must contain 5 numbers';
-                return false;
+            if (!postcode.value.match(/^\d{5}$/)){
+                document.getElementById("postcode-error").innerHTML='*the postcode must contain 5 numbers';
             }
             //If the email field is empty, show a message and prevent sending form
             if (email.length==0) {
-                document.getElementById("emailid").innerHTML = '*the field is required';
-                return false;
+                document.getElementById("email-error").innerHTML = '*the field is required';
             }
-            //Check if the value of email field contains the symbol "@"
-            at= email.indexOf("@");
+            //Check if the value of email field
             //If the field doesn't contain this symbol, then the email value was entered incorrectly
-            if (at<0){
-                document.getElementById("emailid").innerHTML='*please, enter correct email';
-                return false;
+            if (!email.value.match(/^(?!.*\.{2})(?!.*\-{2})(?!.*_{2})[a-zA-Z0-9]+[a-zA-Z0-9_\|.|\-]*[a-zA-Z0-9]+@[a-zA-Z]+\.[a-zA-Z]+$/)){
+                document.getElementById("email-error").innerHTML='*please, enter correct email';
             }
+            return true;
         }
     </script>
 </head>
 <body>
-<form name="form" onsubmit="return checking()">
+<form name="form" onsubmit="checking()">
     <p>
-    Name: <input type="text" name="name"
-                 onkeypress="return (event.keyCode>=65 && event.keyCode<=90)||(event.charCode>=97 && event.charCode<=122)">
-        <span style="color: red" id="nameid"></span>
+    Name: <input type="text" name="name">
+        <span style="color: red" id="name-error"></span>
         </p>
     <p>
-    Surname: <input type="text" name="surname"
-                    onkeypress="return(event.charCode>=65 && event.charCode<=90)||(event.charCode>=97 && event.charCode<=122)">
-        <span style="color: red" id="surnameid"></span>
+    Surname: <input type="text" name="surname">
+        <span style="color: red" id="surname-error"></span>
         </p>
     <p>Town: <input type="text" name="town"></p>
     <p>Country: <input type="text" name="country"></p>
     <p>
-    Postcode: <input type="text" name="postcode" size="5" onkeypress="return event.charCode>=48 && event.charCode<=57">
-        <span style="color:red" id="postcodeid"></span>
+    Postcode: <input type="text" name="postcode">
+        <span style="color:red" id="postcode-errro"></span>
         </p>
     <p>
     E-mail: <input type="text" name="email">
-        <span style="color:red" id="emailid"></span>
+        <span style="color:red" id="email-error"></span>
         </p>
     <input type="submit" name="Send" value="Check">
 </form>
